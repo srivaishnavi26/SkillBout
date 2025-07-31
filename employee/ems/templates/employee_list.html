@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EMP-FORM</title>
+</head>
+<body>
+<h2>Employee List:</h2>
+<a href="{% url 'employee_create' %}">Add Employee</a>
+{% if employees %}
+        {% for emp in employees %}
+            <div>
+                <strong>Name:</strong> {{ emp.name }}<br>
+                <strong>Email:</strong> {{ emp.email }}<br>
+                <strong>Phone:</strong> {{ emp.phone }}<br>
+                <strong>Department:</strong> {{ emp.department }}<br>
+             <a href="{% url 'employee_edit' emp.id %}">Edit</a>
+             <a href="{% url 'employee_delete' emp.id%}">Delete</a>
+            </div><br>
+        {% endfor %}
+    {% else %}
+        <p>No employees found</p>
+    {% endif %}
+</body>
+</html>
