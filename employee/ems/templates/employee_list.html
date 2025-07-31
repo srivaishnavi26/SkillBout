@@ -1,25 +1,29 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>EMP-FORM</title>
+    <title>Employee List</title>
+    <link rel="stylesheet" href="{% static 'ems/list.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
 </head>
 <body>
-<h2>Employee List:</h2>
-<a href="{% url 'employee_create' %}">Add Employee</a>
-{% if employees %}
+    <h2 class="page-header">Employee List</h2>
+    <a class="top-link" href="{% url 'employee_form' %}">Add Employee</a>
+
+    {% if employees %}
         {% for emp in employees %}
-            <div>
+            <div class="employee-card">
                 <strong>Name:</strong> {{ emp.name }}<br>
                 <strong>Email:</strong> {{ emp.email }}<br>
                 <strong>Phone:</strong> {{ emp.phone }}<br>
                 <strong>Department:</strong> {{ emp.department }}<br>
-             <a href="{% url 'employee_edit' emp.id %}">Edit</a>
-             <a href="{% url 'employee_delete' emp.id%}">Delete</a>
-            </div><br>
+                <a href="{% url 'employee_edit' emp.id %}">Edit</a>
+                <a href="{% url 'employee_delete' emp.id %}">Delete</a>
+            </div>
         {% endfor %}
     {% else %}
-        <p>No employees found</p>
+        <p style="text-align: center;">No employees found</p>
     {% endif %}
 </body>
 </html>

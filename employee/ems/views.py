@@ -18,7 +18,7 @@ def employee_create(request):
             date_of_hire = request.POST['date_of_hire'],
             employment_type = request.POST['employment_type'],
             address=request.POST['address'],
-            active_status=bool(request.POST['active_status']),
+            active_status='active_status' in request.POST,
         )
         return redirect('employee_list')
     else:
@@ -35,7 +35,7 @@ def employee_edit(request, id):
         employee.date_of_hire = request.POST['date_of_hire']
         employee.employment_type = request.POST['employment_type']
         employee.address = request.POST['address']
-        employee.active_status = request.POST['active_status']
+        employee.active_status = 'active_status' in request.POST
         employee.save()
         return redirect('employee_list')
     else:

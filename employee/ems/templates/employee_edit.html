@@ -1,8 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Edit</title>
+    <title>Edit Employee</title>
+    <link rel="stylesheet" href="{% static 'ems/edit.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -10,30 +13,35 @@
     <form method="post">
         {% csrf_token %}
         <label>Name:</label>
-        <input type="text" name="name"><br>
+        <input type="text" name="name" value="{{ employee.name }}"><br>
         <label>Email:</label>
-        <input type="email" name="email"><br>
+        <input type="email" name="email" value="{{ employee.email }}"><br>
         <label>Phone:</label>
-        <input type="text" name="phone"><br>
+        <input type="text" name="phone" value="{{ employee.phone }}"><br>
         <label>Department:</label>
-        <input type="text" name="department"><br>
+        <input type="text" name="department" value="{{ employee.department }}"><br>
         <label>Designation:</label>
-        <input type="text" name="designation"><br>
+        <input type="text" name="designation" value="{{ employee.designation }}"><br>
         <label>Salary:</label>
-        <input type="number" name="salary"><br>
+        <input type="number" name="salary" value="{{ employee.salary }}"><br>
         <label>Date of Hire:</label>
-        <input type="date" name="date_of_hire"><br>
+        <input type="date" name="date_of_hire" value="{{ employee.date_of_hire|date:'Y-m-d' }}"><br>
         <label>Employment Type:</label>
         <select name="employment_type">
-            <option value="Full Time">Full Time</option>
-            <option value="Part Time">Part Time</option>
-            <option value="Contract">Contract</option>
+            <option value="Full Time" {% if employee.employment_type == "Full Time" %}selected{% endif %}>Full Time</option>
+            <option value="Part Time" {% if employee.employment_type == "Part Time" %}selected{% endif %}>Part Time</option>
+            <option value="Contract" {% if employee.employment_type == "Contract" %}selected{% endif %}>Contract</option>
         </select><br>
         <label>Address:</label>
-        <textarea name="address"></textarea><br>
+        <textarea name="address">{{ employee.address }}</textarea><br>
         <label>Active Status:</label>
-        <input type="checkbox" name="active_status"><br><br>
-        <button type="submit">Submit</button>
+        <input type="checkbox" name="active_status" {% if employee.active_status %}checked{% endif %}><br><br>
+
+        <div class="form-buttons">
+    <button type="submit">Update</button>
+    <a href="{% url 'employee_list' %}" class="cancel-button">Cancel</a>
+</div>
+
     </form>
     <a href="{% url 'employee_list' %}">View All</a>
 </body>
